@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
@@ -20,6 +20,7 @@ export default function Header({ isLoggedIn }) {
     logout();
     history.push("/");
   };
+
   return (
     <div>
       <Navbar color="light" light expand="md">
@@ -28,9 +29,14 @@ export default function Header({ isLoggedIn }) {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav navbar>
+          <Nav navbar className="mr-auto">
             {isLoggedIn && (
               <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/website">
+                    Websites
+                  </NavLink>
+                </NavItem>
                 <NavItem>
                   <a
                     aria-current="page"

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import UserTrialList from "./UserTrialList";
+import WebsiteList from "./WebsiteList";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -10,6 +11,9 @@ export default function ApplicationViews({ isLoggedIn }) {
       <Switch>
         <Route path="/" exact>
           {isLoggedIn ? <UserTrialList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/website">
+          {isLoggedIn ? <WebsiteList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
