@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import { Link } from "react-router-dom";
 import Website from "./Website";
 import { getAllWebsites } from "../modules/websiteManager";
 

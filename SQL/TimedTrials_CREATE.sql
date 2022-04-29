@@ -37,7 +37,7 @@ CREATE TABLE [Trial] (
   [WebsiteId] int NOT NULL,
   [TrialDuration] int NOT NULL,
   [TrialExpirationDate] datetime NOT NULL,
-  [SubscriptionPrice] decimal NOT NULL
+  [SubscriptionPrice] decimal(18,2) NOT NULL
 )
 GO
 

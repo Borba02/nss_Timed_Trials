@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
+import TrialList from "./TrialList";
 import UserTrialList from "./UserTrialList";
 import WebsiteList from "./WebsiteList";
 
@@ -14,6 +15,9 @@ export default function ApplicationViews({ isLoggedIn }) {
         </Route>
         <Route path="/website">
           {isLoggedIn ? <WebsiteList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/trial">
+          {isLoggedIn ? <TrialList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import { Link } from "react-router-dom";
 import UserTrial from "./UserTrial";
 import { getAllCurrentUserTrials } from "../modules/userTrialManager";
 

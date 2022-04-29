@@ -26,6 +26,7 @@ namespace TimedTrials
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IUserTrialRepository, UserTrialRepository>();
             services.AddTransient<IWebsiteRepository, WebsiteRepository>();
+            services.AddTransient<ITrialRepository, TrialRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
