@@ -23,5 +23,11 @@ namespace TimedTrials.Controllers
         {
             return Ok(_websiteRepository.GetAll());
         }
+        [HttpPost]
+        public IActionResult Add(Website website)
+        {
+            _websiteRepository.AddWebsite(website);
+            return Ok(website);
+        }
     }
 }

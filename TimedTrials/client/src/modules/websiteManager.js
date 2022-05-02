@@ -18,3 +18,22 @@ export const getAllWebsites = () => {
     });
   });
 };
+
+export const addWebsite = (website) => {
+  return getToken().then((token) => {
+    return fetch(_apiUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(website),
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error("An error occured adding new website");
+      }
+    });
+  });
+};

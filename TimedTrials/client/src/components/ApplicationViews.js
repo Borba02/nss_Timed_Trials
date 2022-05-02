@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import TrialList from "./TrialList";
 import UserTrialList from "./UserTrialList";
+import WebsiteForm from "./WebsiteForm";
 import WebsiteList from "./WebsiteList";
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -13,8 +14,11 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/" exact>
           {isLoggedIn ? <UserTrialList /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/website">
+        <Route path="/website" exact>
           {isLoggedIn ? <WebsiteList /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/website/new">
+          {isLoggedIn ? <WebsiteForm /> : <Redirect to="/login" />}
         </Route>
         <Route path="/trial">
           {isLoggedIn ? <TrialList /> : <Redirect to="/login" />}

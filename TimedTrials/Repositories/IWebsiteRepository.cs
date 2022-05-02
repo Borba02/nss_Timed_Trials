@@ -5,6 +5,7 @@ namespace TimedTrials.Repositories
 {
     public interface IWebsiteRepository
     {
+        void AddWebsite(Website website);
         List<Website> GetAll();
     }
 }
