@@ -40,6 +40,24 @@ namespace TimedTrials.Repositories
                 }
             }
         }
+        public void AddWebsite(Website website)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Website (Name, Url) 
+                                        OUTPUT Inserted.Id
+                                        VALUES (@Name, @Url);";
+
+                    DbUtils.AddParameter(cmd, "@Name", website.Name);
+                    DbUtils.AddParameter(cmd, "@Url", website.Url);
+
+                    website.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 
 }
