@@ -40,6 +40,34 @@ namespace TimedTrials.Repositories
                 }
             }
         }
+        public Website GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, [Name], Url AS WebsiteUrl FROM Website WHERE Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    Website website = null;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        website = new Website()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                            Url = DbUtils.GetString(reader, "WebsiteUrl")
+                        };
+                    }
+                    reader.Close();
+                    return website;
+
+                }
+
+            }
+        }
         public void AddWebsite(Website website)
         {
             using (var conn = Connection)
@@ -58,6 +86,20 @@ namespace TimedTrials.Repositories
                 }
             }
         }
+        public void DeleteWebsite(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Website WHERE Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 
 }

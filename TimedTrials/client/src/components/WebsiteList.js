@@ -24,6 +24,7 @@ const WebsiteList = () => {
             return (
               <ListGroupItem key={websites.id}>
                 <Website website={websites} />
+                <Link to={`/website/delete/${websites.id}`}>Delete</Link>
               </ListGroupItem>
             );
           })}

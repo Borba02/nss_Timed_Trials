@@ -23,11 +23,24 @@ namespace TimedTrials.Controllers
         {
             return Ok(_websiteRepository.GetAll());
         }
+        [HttpGet("{id}")]
+        public IActionResult GetWebsiteById(int id)
+        {
+            return Ok(_websiteRepository.GetById(id));
+        }
         [HttpPost]
         public IActionResult Add(Website website)
         {
             _websiteRepository.AddWebsite(website);
             return Ok(website);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            {
+                _websiteRepository.DeleteWebsite(id);
+                return NoContent();
+            }
         }
     }
 }
