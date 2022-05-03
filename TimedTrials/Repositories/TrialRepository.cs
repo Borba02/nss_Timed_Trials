@@ -50,6 +50,26 @@ namespace TimedTrials.Repositories
                 }
             }
         }
+        public void AddTrial(Trial trial)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Trial (WebsiteId, TrialDuration, TrialExpirationDate, SubscriptionPrice)
+                                        OUTPUT Inserted.Id
+                                        VALUES (@WebsiteId, @TrialDuration, @TrialExpirationDate, @SubscriptionPrice)";
+
+                    DbUtils.AddParameter(cmd, "@WebsiteId", trial.WebsiteId);
+                    DbUtils.AddParameter(cmd, "@TrialDuration", trial.TrialDuration);
+                    DbUtils.AddParameter(cmd, "@TrialExpirationDate", trial.TrialExpirationDate);
+                    DbUtils.AddParameter(cmd, "@SubscriptionPrice", trial.SubscriptionPrice);
+
+                    trial.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 
 }

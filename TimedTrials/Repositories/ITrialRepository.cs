@@ -5,6 +5,7 @@ namespace TimedTrials.Repositories
 {
     public interface ITrialRepository
     {
+        void AddTrial(Trial trial);
         List<Trial> GetAll();
     }
 }
