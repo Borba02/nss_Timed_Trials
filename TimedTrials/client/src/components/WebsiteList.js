@@ -18,7 +18,7 @@ const WebsiteList = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <Link to={`/website/new`}>Add New</Link>
+        <Link to={`/website/new`}>Add New Website</Link>
         <ListGroup>
           {websites.map((websites) => {
             return (

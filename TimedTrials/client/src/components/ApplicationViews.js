@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import TrialList from "./TrialList";
+import TrialForm from "./TrialForm";
 import UserTrialList from "./UserTrialList";
 import WebsiteDelete from "./WebsiteDelete";
 import WebsiteForm from "./WebsiteForm";
@@ -24,10 +25,12 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/website/delete/:id(\d+)" exact>
           {isLoggedIn ? <WebsiteDelete /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/trial">
+        <Route path="/trial" exact>
           {isLoggedIn ? <TrialList /> : <Redirect to="/login" />}
         </Route>
-
+        <Route path="/trial/new">
+          {isLoggedIn ? <TrialForm /> : <Redirect to="/login" />}
+        </Route>
         <Route path="/login">
           <Login />
         </Route>

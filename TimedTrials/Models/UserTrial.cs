@@ -11,5 +11,11 @@ namespace TimedTrials.Models
         public UserProfile UserProfile { get; set; }
         public int TrialId { get; set; }
         public Trial Trial { get; set; }
+
+        public DateTime TrialEndDate { get
+            {
+                return TrialStartDate.AddDays(Trial.TrialDuration);
+            }
+}
     }
 }

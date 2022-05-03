@@ -23,5 +23,11 @@ namespace TimedTrials.Controllers
         {
             return Ok(_trialRepository.GetAll());
         }
+        [HttpPost]
+        public IActionResult Add(Trial trial)
+        {
+            _trialRepository.AddTrial(trial);
+            return Ok(trial);
+        }
     }
 }

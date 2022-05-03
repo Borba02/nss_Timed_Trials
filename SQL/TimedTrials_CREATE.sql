@@ -36,7 +36,7 @@ CREATE TABLE [Trial] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [WebsiteId] int NOT NULL,
   [TrialDuration] int NOT NULL,
-  [TrialExpirationDate] datetime NOT NULL,
+  [TrialExpirationDate] datetime,
   [SubscriptionPrice] decimal(18,2) NOT NULL
 )
 GO
