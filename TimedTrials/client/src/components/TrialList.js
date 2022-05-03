@@ -24,6 +24,7 @@ const TrialList = () => {
             return (
               <ListGroupItem key={trial.id}>
                 <Trial trial={trial} />
+                <Link to={`/trial/delete/${trial.id}`}>Delete</Link>
               </ListGroupItem>
             );
           })}

@@ -50,6 +50,38 @@ namespace TimedTrials.Repositories
                 }
             }
         }
+        public Trial GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT TrialDuration, TrialExpirationDate, SubscriptionPrice, WebsiteId 
+                                        FROM Trial 
+                                        WHERE Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    Trial trial = null;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        trial = new Trial()
+                        {
+                            
+                            TrialDuration = DbUtils.GetInt(reader, "TrialDuration"),
+                            TrialExpirationDate = DbUtils.GetDateTime(reader, "TrialExpirationDate"),
+                            SubscriptionPrice = reader.GetDecimal(reader.GetOrdinal("SubscriptionPrice")),
+                            WebsiteId = DbUtils.GetInt(reader, "WebsiteId"),
+                        };
+                    }
+                    reader.Close();
+                    return trial;
+
+                }
+
+            }
+        }
         public void AddTrial(Trial trial)
         {
             using (var conn = Connection)
@@ -67,6 +99,19 @@ namespace TimedTrials.Repositories
                     DbUtils.AddParameter(cmd, "@SubscriptionPrice", trial.SubscriptionPrice);
 
                     trial.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+        public void DeleteTrial(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Trial WHERE Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

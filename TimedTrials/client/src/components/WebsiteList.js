@@ -20,11 +20,11 @@ const WebsiteList = () => {
       <div className="row justify-content-center">
         <Link to={`/website/new`}>Add New Website</Link>
         <ListGroup>
-          {websites.map((websites) => {
+          {websites.map((website) => {
             return (
-              <ListGroupItem key={websites.id}>
-                <Website website={websites} />
-                <Link to={`/website/delete/${websites.id}`}>Delete</Link>
+              <ListGroupItem key={website.id}>
+                <Website website={website} />
+                <Link to={`/website/delete/${website.id}`}>Delete</Link>
               </ListGroupItem>
             );
           })}

@@ -37,3 +37,30 @@ export const addTrial = (trial) => {
     });
   });
 };
+export const getTrialById = (id) => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error("An error occurred retrieving trial");
+      }
+    });
+  });
+};
+
+export const deleteTrial = (id) => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  });
+};

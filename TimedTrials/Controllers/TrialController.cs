@@ -29,5 +29,18 @@ namespace TimedTrials.Controllers
             _trialRepository.AddTrial(trial);
             return Ok(trial);
         }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            {
+                _trialRepository.DeleteTrial(id);
+                return NoContent();
+            }
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetTrialById(int id)
+        {
+            return Ok(_trialRepository.GetById(id));
+        }
     }
 }
