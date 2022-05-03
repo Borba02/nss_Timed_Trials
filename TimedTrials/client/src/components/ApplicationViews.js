@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import TrialList from "./TrialList";
 import TrialForm from "./TrialForm";
+import TrialDelete from "./TrialDelete";
 import UserTrialList from "./UserTrialList";
 import WebsiteDelete from "./WebsiteDelete";
 import WebsiteForm from "./WebsiteForm";
@@ -30,6 +31,9 @@ export default function ApplicationViews({ isLoggedIn }) {
         </Route>
         <Route path="/trial/new">
           {isLoggedIn ? <TrialForm /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/trial/delete/:id(\d+)" exact>
+          {isLoggedIn ? <TrialDelete /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
           <Login />
