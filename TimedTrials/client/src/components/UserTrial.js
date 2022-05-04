@@ -9,6 +9,8 @@ const UserTrial = ({ userTrial }) => {
           <p>This is a test.</p>
           <p>{userTrial.trial.website.name}</p>
           <p>{userTrial.trial.website.url}</p>
+          <p>{userTrial.trial.trialDuration}</p>
+          <p>{userTrial.trialEndDate}</p>
         </CardBody>
       </div>
     </Card>

@@ -47,7 +47,7 @@ namespace TimedTrials.Repositories
                                 },                                
                                 TrialId = DbUtils.GetInt(reader, "TrialId"),
                                 TrialStartDate = DbUtils.GetDateTime(reader, "TrialStartDate"),
-                                SubscriptionActive = DbUtils.GetBool(reader, "SubscriptionActive"),
+                                SubscriptionActive = reader.GetBoolean(reader.GetOrdinal("SubscriptionActive")),
                                 Trial = new Trial()
                                 {
                                     Id = DbUtils.GetInt(reader, "TrialId"),
@@ -61,11 +61,32 @@ namespace TimedTrials.Repositories
                                         Name = DbUtils.GetString(reader, "WebsiteName"),
                                         Url = DbUtils.GetString(reader, "WebsiteUrl")
                                     }
-                                }
+                                },
+                                
                             });
                         }
                         return userTrials;
                     }
+                }
+            }
+        }
+        public void AddUserTrial(UserTrial userTrial)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO UserTrial (UserId, TrialId, TrialStartDate, SubscriptionActive)
+                                        OUTPUT Inserted.Id
+                                        VALUES (@UserId, @TrialId, @TrialStartDate, @SubscriptionActive)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", userTrial.UserId);
+                    DbUtils.AddParameter(cmd, "@TrialId", userTrial.TrialId);
+                    DbUtils.AddParameter(cmd, "@TrialStartDate", userTrial.TrialStartDate);
+                    DbUtils.AddParameter(cmd, "@SubscriptionActive", userTrial.SubscriptionActive);
+
+                    userTrial.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
