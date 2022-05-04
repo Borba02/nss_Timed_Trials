@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using TimedTrials.Repositories;
@@ -24,9 +25,22 @@ namespace TimedTrials.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var currentUserProfile  = GetCurrentUserProfile();
+            var currentUserProfile = GetCurrentUserProfile();
             var userId = currentUserProfile.Id;
             return Ok(_userTrialRepository.GetActiveUserTrials(userId));
+        }
+
+        [HttpPost("{trialId}")]
+        public IActionResult Add(int trialId)
+        {
+            UserTrial userTrial = new UserTrial();
+            var currentUserProfile = GetCurrentUserProfile();
+            userTrial.TrialId = trialId;
+            userTrial.UserId = currentUserProfile.Id;
+            userTrial.TrialStartDate = DateTime.Now;
+            userTrial.SubscriptionActive = true;
+            _userTrialRepository.AddUserTrial(userTrial);
+            return Ok(userTrial);
         }
 
         private UserProfile GetCurrentUserProfile()
