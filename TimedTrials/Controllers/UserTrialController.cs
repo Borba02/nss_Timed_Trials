@@ -14,13 +14,16 @@ namespace TimedTrials.Controllers
     {
         private readonly IUserTrialRepository _userTrialRepository;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly ITrialRepository _trialRepository;
 
         public UserTrialController(
             IUserTrialRepository userTrialRepository,
-            IUserProfileRepository userProfileRepository)
+            IUserProfileRepository userProfileRepository,
+            ITrialRepository trialRepository)
         {
             _userTrialRepository = userTrialRepository;
             _userProfileRepository = userProfileRepository;
+            _trialRepository = trialRepository;
         }
         [HttpGet]
         public IActionResult Get()
@@ -29,6 +32,11 @@ namespace TimedTrials.Controllers
             var userId = currentUserProfile.Id;
             return Ok(_userTrialRepository.GetActiveUserTrials(userId));
         }
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_userTrialRepository.GetUserTrialById(id));
+        }
 
         [HttpPost("{trialId}")]
         public IActionResult Add(int trialId)
@@ -36,6 +44,7 @@ namespace TimedTrials.Controllers
             UserTrial userTrial = new UserTrial();
             var currentUserProfile = GetCurrentUserProfile();
             userTrial.TrialId = trialId;
+            userTrial.Trial = _trialRepository.GetById(trialId);
             userTrial.UserId = currentUserProfile.Id;
             userTrial.TrialStartDate = DateTime.Now;
             userTrial.SubscriptionActive = true;
@@ -43,6 +52,16 @@ namespace TimedTrials.Controllers
             return Ok(userTrial);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update(int id)
+        {
+            var userTrial = _userTrialRepository.GetUserTrialById(id);
+            
+            userTrial.SubscriptionActive = false;
+
+            _userTrialRepository.UpdateUserTrial(userTrial);
+            return Ok(userTrial);
+        }
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

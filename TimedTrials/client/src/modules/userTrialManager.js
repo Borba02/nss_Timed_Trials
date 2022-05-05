@@ -38,3 +38,23 @@ export const addUserTrial = (trialId) => {
     });
   });
 };
+export const updateUserTrial = (id) => {
+  return getToken().then((token) => {
+    return fetch(`${_apiUrl}/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(id),
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error(
+          "An unknown error occurred while trying to save changes to trial."
+        );
+      }
+    });
+  });
+};
