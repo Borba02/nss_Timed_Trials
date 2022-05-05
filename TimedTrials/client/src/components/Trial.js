@@ -6,7 +6,7 @@ const Trial = ({ trial }) => {
     <Card>
       <div>
         <CardBody>
-          <p>This is a test.</p>
+          <p>This is a test trial card.</p>
           <p>{trial.website.name}</p>
           <p>${trial.subscriptionPrice} per month</p>
           <p>{trial.trialExpirationDate}</p>

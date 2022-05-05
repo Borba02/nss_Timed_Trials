@@ -44,7 +44,7 @@ namespace TimedTrials.Repositories
                                     Id = id,
                                     Name = DbUtils.GetString(reader, "UserName"),
                                     Email = DbUtils.GetString(reader, "Email")
-                                },                                
+                                },
                                 TrialId = DbUtils.GetInt(reader, "TrialId"),
                                 TrialStartDate = DbUtils.GetDateTime(reader, "TrialStartDate"),
                                 SubscriptionActive = reader.GetBoolean(reader.GetOrdinal("SubscriptionActive")),
@@ -62,7 +62,7 @@ namespace TimedTrials.Repositories
                                         Url = DbUtils.GetString(reader, "WebsiteUrl")
                                     }
                                 },
-                                
+
                             });
                         }
                         return userTrials;
@@ -87,6 +87,75 @@ namespace TimedTrials.Repositories
                     DbUtils.AddParameter(cmd, "@SubscriptionActive", userTrial.SubscriptionActive);
 
                     userTrial.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+        public UserTrial GetUserTrialById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT ut.Id, ut.UserId, ut.TrialId, ut.TrialStartDate, ut.SubscriptionActive,
+                                               t.Id, t.TrialDuration, t.TrialExpirationDate, t.SubscriptionPrice,
+                                               t.WebsiteId
+                                        FROM UserTrial ut 
+                                        JOIN Trial t ON ut.TrialId = t.Id
+                                        WHERE ut.Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    UserTrial userTrial = null;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        userTrial = new UserTrial()
+                        {
+                            Id = id,
+                            UserId = DbUtils.GetInt(reader, "UserId"),
+                            TrialId = DbUtils.GetInt(reader, "TrialId"),
+                            TrialStartDate = DbUtils.GetDateTime(reader, "TrialStartDate"),
+                            SubscriptionActive = reader.GetBoolean(reader.GetOrdinal("SubscriptionActive")),
+                            Trial = new Trial()
+                            {
+                                Id = DbUtils.GetInt(reader, "TrialId"),
+                                TrialDuration = DbUtils.GetInt(reader, "TrialDuration"),
+                                TrialExpirationDate = DbUtils.GetDateTime(reader, "TrialExpirationDate"),
+                                SubscriptionPrice = reader.GetDecimal(reader.GetOrdinal("SubscriptionPrice")),
+                                WebsiteId = DbUtils.GetInt(reader, "WebsiteId")
+                            }
+
+                        };
+                    }
+                    reader.Close();
+
+                    return userTrial;
+
+                }
+
+            }
+        }
+        public void UpdateUserTrial(UserTrial userTrial)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE UserTrial
+                                        SET UserId = @UserId,
+                                            TrialId = @TrialId,
+                                            TrialStartDate = @TrialStartDate,
+                                            SubscriptionActive = @SubscriptionActive
+                                        WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@UserId", userTrial.UserId);
+                    DbUtils.AddParameter(cmd, "@TrialId", userTrial.TrialId);
+                    DbUtils.AddParameter(cmd, "@TrialStartDate", userTrial.TrialStartDate);
+                    DbUtils.AddParameter(cmd, "@SubscriptionActive", userTrial.SubscriptionActive);
+                    DbUtils.AddParameter(cmd, "@id", userTrial.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

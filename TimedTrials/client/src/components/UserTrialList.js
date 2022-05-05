@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import UserTrial from "./UserTrial";
-import { getAllCurrentUserTrials } from "../modules/userTrialManager";
+import {
+  getAllCurrentUserTrials,
+  updateUserTrial,
+} from "../modules/userTrialManager";
 
 const UserTrialList = () => {
   const [userTrials, setCurrentUserTrials] = useState([]);
+  const [render, setRender] = useState(1);
 
   const getUserTrials = () => {
     getAllCurrentUserTrials().then((userTrials) =>
@@ -14,7 +18,13 @@ const UserTrialList = () => {
 
   useEffect(() => {
     getUserTrials();
-  }, []);
+  }, [render]);
+
+  const cancelTrialHandle = (evt) => {
+    evt.preventDefault();
+    updateUserTrial(evt.target.value);
+    setRender(render + 2);
+  };
 
   return (
     <div className="container">
@@ -24,6 +34,9 @@ const UserTrialList = () => {
             return (
               <ListGroupItem key={userTrial.id}>
                 <UserTrial userTrial={userTrial} />
+                <Button value={userTrial.id} onClick={cancelTrialHandle}>
+                  Trial Cancelled?
+                </Button>
               </ListGroupItem>
             );
           })}

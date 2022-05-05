@@ -22,6 +22,7 @@ namespace TimedTrials.Repositories
                                                w.Id AS WebsiteId, w.Name AS WebsiteName, w.Url AS WebsiteUrl
                                         FROM Trial t
                                         JOIN Website w ON t.WebsiteId = w.Id
+                                        WHERE t.TrialExpirationDate > CURRENT_TIMESTAMP
                                                 ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())

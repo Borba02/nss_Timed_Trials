@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { Button, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import Website from "./Website";
 import { getAllWebsites } from "../modules/websiteManager";
@@ -24,7 +24,9 @@ const WebsiteList = () => {
             return (
               <ListGroupItem key={website.id}>
                 <Website website={website} />
-                <Link to={`/website/delete/${website.id}`}>Delete</Link>
+                <Link to={`/website/delete/${website.id}`}>
+                  <Button>Delete Website</Button>
+                </Link>
               </ListGroupItem>
             );
           })}

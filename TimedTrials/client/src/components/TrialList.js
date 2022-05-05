@@ -12,13 +12,13 @@ const TrialList = () => {
   const [userTrials, setCurrentUserTrials] = useState([]);
   const [trials, setTrials] = useState([]);
   const [render, setRender] = useState(1);
-  const getTrials = () => {
-    getAllTrials().then((trials) => setTrials(trials));
-  };
   const getUserTrials = () => {
     getAllCurrentUserTrials().then((userTrials) =>
       setCurrentUserTrials(userTrials)
     );
+  };
+  const getTrials = () => {
+    getAllTrials().then((trials) => setTrials(trials));
   };
   useEffect(() => {
     getUserTrials();
@@ -54,9 +54,6 @@ const TrialList = () => {
               <ListGroupItem key={trial.id}>
                 <Trial trial={trial} />
                 {displayTrackingButton(trial.id)}
-                <Link to={`/trial/delete/${trial.id}`}>
-                  <Button>Delete Trial</Button>
-                </Link>
               </ListGroupItem>
             );
           })}
