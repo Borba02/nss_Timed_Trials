@@ -2,9 +2,12 @@
 using System;
 using TimedTrials.Models;
 using TimedTrials.Repositories;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace TimedTrials.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
