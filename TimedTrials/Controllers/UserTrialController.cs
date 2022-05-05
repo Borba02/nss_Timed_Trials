@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TimedTrials.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserTrialController : ControllerBase
