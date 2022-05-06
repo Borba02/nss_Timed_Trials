@@ -7,6 +7,7 @@ namespace TimedTrials.Repositories
     {
         void AddWebsite(Website website);
         void DeleteWebsite(int id);
+        void EditWebsite(Website website);
         List<Website> GetAll();
         Website GetById(int id);
     }

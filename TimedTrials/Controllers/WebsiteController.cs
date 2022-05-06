@@ -38,10 +38,16 @@ namespace TimedTrials.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            {
-                _websiteRepository.DeleteWebsite(id);
-                return NoContent();
-            }
+
+            _websiteRepository.DeleteWebsite(id);
+            return NoContent();
+
+        }
+        [HttpPut]
+        public IActionResult Edit(Website website)
+        {
+            _websiteRepository.EditWebsite(website);
+            return Ok(website);
         }
     }
 }

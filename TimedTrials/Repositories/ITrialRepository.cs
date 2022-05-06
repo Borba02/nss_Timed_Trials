@@ -6,7 +6,6 @@ namespace TimedTrials.Repositories
     public interface ITrialRepository
     {
         void AddTrial(Trial trial);
-        void DeleteTrial(int id);
         List<Trial> GetAll();
         Trial GetById(int id);
     }

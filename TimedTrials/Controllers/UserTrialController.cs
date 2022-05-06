@@ -53,15 +53,11 @@ namespace TimedTrials.Controllers
             return Ok(userTrial);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            var userTrial = _userTrialRepository.GetUserTrialById(id);
-            
-            userTrial.SubscriptionActive = false;
-
-            _userTrialRepository.UpdateUserTrial(userTrial);
-            return Ok(userTrial);
+            _userTrialRepository.DeleteUserTrial(id);
+            return Ok(id);
         }
         private UserProfile GetCurrentUserProfile()
         {

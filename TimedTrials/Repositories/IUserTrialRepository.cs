@@ -8,6 +8,6 @@ namespace TimedTrials.Repositories
         void AddUserTrial(UserTrial userTrial);
         List<UserTrial> GetActiveUserTrials(int id);
         UserTrial GetUserTrialById(int id);
-        void UpdateUserTrial(UserTrial userTrial);
+        void DeleteUserTrial(int id);
     }
 }

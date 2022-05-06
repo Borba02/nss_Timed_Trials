@@ -36,7 +36,7 @@ CREATE TABLE [Trial] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [WebsiteId] int NOT NULL,
   [TrialDuration] int NOT NULL,
-  [TrialExpirationDate] datetime,
+  [TrialExpirationDate] datetime, 
   [SubscriptionPrice] decimal(18,2) NOT NULL
 )
 GO
@@ -54,5 +54,5 @@ GO
 ALTER TABLE [UserTrial] ADD FOREIGN KEY ([TrialId]) REFERENCES [Trial] ([Id])
 GO
 
-ALTER TABLE [Trial] ADD FOREIGN KEY ([WebsiteId]) REFERENCES [Website] ([Id])
+ALTER TABLE [Trial] ADD FOREIGN KEY ([WebsiteId]) REFERENCES [Website] ([Id]) 
 GO

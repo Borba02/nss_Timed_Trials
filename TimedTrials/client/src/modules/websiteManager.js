@@ -62,6 +62,31 @@ export const deleteWebsite = (id) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.ok;
+      } else {
+        throw new Error("An error occurred deleting listing");
+      }
+    });
+  });
+};
+
+export const editWebsite = (website) => {
+  return getToken().then((token) => {
+    return fetch(_apiUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(website),
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error("An error occured updating this Website");
+      }
     });
   });
 };
