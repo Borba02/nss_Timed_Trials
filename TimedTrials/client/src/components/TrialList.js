@@ -12,17 +12,25 @@ const TrialList = () => {
   const [userTrials, setCurrentUserTrials] = useState([]);
   const [trials, setTrials] = useState([]);
   const [render, setRender] = useState(1);
-  const getUserTrials = () => {
-    getAllCurrentUserTrials().then((userTrials) =>
-      setCurrentUserTrials(userTrials)
-    );
+
+  // const getUserTrials = () => {
+  //   getAllCurrentUserTrials().then((userTrials) =>
+  //     setCurrentUserTrials(userTrials)
+  //   );
+  // };
+  // const getTrials = () => {
+  //   getAllTrials().then((trials) => setTrials(trials));
+  // };
+
+  const fetchAllTrials = () => {
+    Promise.all([getAllCurrentUserTrials(), getAllTrials()]).then(([ut, t]) => {
+      setTrials(t);
+      setCurrentUserTrials(ut);
+    });
   };
-  const getTrials = () => {
-    getAllTrials().then((trials) => setTrials(trials));
-  };
+
   useEffect(() => {
-    getUserTrials();
-    getTrials();
+    fetchAllTrials();
   }, [render]);
 
   const displayTrackingButton = (id) => {
@@ -40,8 +48,9 @@ const TrialList = () => {
 
   const subscriptionButtonHandler = (evt) => {
     evt.preventDefault();
-    addUserTrial(evt.target.id);
-    setRender(render + 1);
+    addUserTrial(evt.target.id).then(() => {
+      setRender(render + 1);
+    });
   };
 
   return (

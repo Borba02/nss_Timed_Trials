@@ -22,8 +22,9 @@ const UserTrialList = () => {
 
   const cancelTrialHandle = (evt) => {
     evt.preventDefault();
-    updateUserTrial(evt.target.value);
-    setRender(render + 2);
+    updateUserTrial(evt.target.value).then(() => {
+      setRender(render + 2);
+    });
   };
 
   return (
