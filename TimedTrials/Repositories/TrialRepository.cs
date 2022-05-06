@@ -23,6 +23,7 @@ namespace TimedTrials.Repositories
                                         FROM Trial t
                                         JOIN Website w ON t.WebsiteId = w.Id
                                         WHERE t.TrialExpirationDate > CURRENT_TIMESTAMP
+                                        ORDER BY t.TrialExpirationDate ASC
                                                 ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -103,19 +104,5 @@ namespace TimedTrials.Repositories
                 }
             }
         }
-        public void DeleteTrial(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"DELETE FROM Trial WHERE Id = @id;";
-                    DbUtils.AddParameter(cmd, "@id", id);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
     }
-
 }

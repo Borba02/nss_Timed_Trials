@@ -100,6 +100,24 @@ namespace TimedTrials.Repositories
             }
         }
 
-    }
+        public void EditWebsite(Website website)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Website
+                                        SET Name = @Name,
+                                            Url = @Url
+                                        WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@Name", website.Name);
+                    DbUtils.AddParameter(cmd, "@Url", website.Url);
+                    DbUtils.AddParameter(cmd, "@id", website.Id);
 
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }
 }

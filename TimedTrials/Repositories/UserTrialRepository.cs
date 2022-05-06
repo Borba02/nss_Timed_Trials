@@ -99,9 +99,10 @@ namespace TimedTrials.Repositories
                 {
                     cmd.CommandText = @"SELECT ut.Id, ut.UserId, ut.TrialId, ut.TrialStartDate, ut.SubscriptionActive,
                                                t.Id, t.TrialDuration, t.TrialExpirationDate, t.SubscriptionPrice,
-                                               t.WebsiteId
+                                               t.WebsiteId, w.Id, w.Name AS WebsiteName, w.Url AS WebsiteUrl
                                         FROM UserTrial ut 
                                         JOIN Trial t ON ut.TrialId = t.Id
+                                        JOIN Website w ON t.WebsiteId = w.Id
                                         WHERE ut.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -123,7 +124,13 @@ namespace TimedTrials.Repositories
                                 TrialDuration = DbUtils.GetInt(reader, "TrialDuration"),
                                 TrialExpirationDate = DbUtils.GetDateTime(reader, "TrialExpirationDate"),
                                 SubscriptionPrice = reader.GetDecimal(reader.GetOrdinal("SubscriptionPrice")),
-                                WebsiteId = DbUtils.GetInt(reader, "WebsiteId")
+                                WebsiteId = DbUtils.GetInt(reader, "WebsiteId"),
+                                Website = new Website()
+                                {
+                                    Id = DbUtils.GetInt(reader, "WebsiteId"),
+                                    Name = DbUtils.GetString(reader, "WebsiteName"),
+                                    Url = DbUtils.GetString(reader, "WebsiteUrl")
+                                }
                             }
 
                         };
@@ -136,25 +143,16 @@ namespace TimedTrials.Repositories
 
             }
         }
-        public void UpdateUserTrial(UserTrial userTrial)
+
+        public void DeleteUserTrial(int id)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE UserTrial
-                                        SET UserId = @UserId,
-                                            TrialId = @TrialId,
-                                            TrialStartDate = @TrialStartDate,
-                                            SubscriptionActive = @SubscriptionActive
-                                        WHERE Id = @id";
-                    DbUtils.AddParameter(cmd, "@UserId", userTrial.UserId);
-                    DbUtils.AddParameter(cmd, "@TrialId", userTrial.TrialId);
-                    DbUtils.AddParameter(cmd, "@TrialStartDate", userTrial.TrialStartDate);
-                    DbUtils.AddParameter(cmd, "@SubscriptionActive", userTrial.SubscriptionActive);
-                    DbUtils.AddParameter(cmd, "@id", userTrial.Id);
-
+                    cmd.CommandText = @"DELETE FROM UserTrial WHERE Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }
             }

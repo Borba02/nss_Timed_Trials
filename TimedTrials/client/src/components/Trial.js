@@ -7,10 +7,16 @@ const Trial = ({ trial }) => {
       <div>
         <CardBody>
           <p>This is a test trial card.</p>
-          <p>{trial.website.name}</p>
+          <h5>Website</h5>
+          <p>
+            <strong>{trial.website.name}</strong>
+            <br />
+            {trial.website.url}
+          </p>
+          <h5>Subscription Fee after trial ends</h5>
           <p>${trial.subscriptionPrice} per month</p>
+          <h5>Trial Offer ends on</h5>
           <p>{trial.trialExpirationDate}</p>
-          <p>{trial.website.url}</p>
         </CardBody>
       </div>
     </Card>
