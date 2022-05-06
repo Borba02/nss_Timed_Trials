@@ -27,7 +27,6 @@ namespace TimedTrials.Repositories
                                     JOIN Website w ON t.WebsiteId = w.Id
                                     JOIN UserProfile up ON ut.UserId = up.Id
                                         WHERE up.Id = @Id AND ut.SubscriptionActive = 1
-                                        ORDER BY ut.TrialEndDate ASC
                                     ";
                     DbUtils.AddParameter(cmd, "@Id", id);
 

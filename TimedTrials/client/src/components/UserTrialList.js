@@ -21,18 +21,16 @@ const UserTrialList = () => {
     <div className="container">
       <div className="row justify-content-center">
         <ListGroup>
-          {userTrials
-            .map((userTrial) => {
-              return (
-                <ListGroupItem key={userTrial.id}>
-                  <UserTrial userTrial={userTrial} />
-                  <Link to={`/userTrial/delete/${userTrial.id}`}>
-                    <Button>Trial Cancelled?</Button>
-                  </Link>
-                </ListGroupItem>
-              );
-            })
-            .sort((a, b) => b.trialEndDate - a.TrialEndDate)}
+          {userTrials.map((userTrial) => {
+            return (
+              <ListGroupItem key={userTrial.id}>
+                <UserTrial userTrial={userTrial} />
+                <Link to={`/userTrial/delete/${userTrial.id}`}>
+                  <Button>Trial Cancelled?</Button>
+                </Link>
+              </ListGroupItem>
+            );
+          })}
         </ListGroup>
       </div>
     </div>
