@@ -6,7 +6,6 @@ const Website = ({ website }) => {
     <Card>
       <div>
         <CardBody>
-          <p>This is a test.</p>
           <p>{website.name}</p>
           <p>{website.url}</p>
         </CardBody>

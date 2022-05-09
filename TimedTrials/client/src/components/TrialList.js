@@ -21,7 +21,7 @@ const TrialList = () => {
   // const getTrials = () => {
   //   getAllTrials().then((trials) => setTrials(trials));
   // };
-
+  //Refactored to ensure requests are managed in necessary order for button's conditional rendering check
   const fetchAllTrials = () => {
     Promise.all([getAllCurrentUserTrials(), getAllTrials()]).then(([ut, t]) => {
       setTrials(t);

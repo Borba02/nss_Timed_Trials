@@ -6,7 +6,6 @@ const UserTrial = ({ userTrial }) => {
     <Card>
       <div>
         <CardBody>
-          <p>This is a test userTrial card.</p>
           <h5>Website</h5>
           <p>
             <strong>{userTrial.trial.website.name}</strong>
