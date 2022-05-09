@@ -86,19 +86,7 @@ namespace TimedTrials.Repositories
                 }
             }
         }
-        public void DeleteWebsite(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"DELETE FROM Website WHERE Id = @id;";
-                    DbUtils.AddParameter(cmd, "@id", id);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        
 
         public void EditWebsite(Website website)
         {
