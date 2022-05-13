@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Card, CardBody } from "reactstrap";
 import {
   deleteUserTrial,
   getByUserTrialById,
@@ -26,22 +26,30 @@ const UserTrialDelete = () => {
   };
 
   return (
-    <div>
-      <header>
-        This action will remove this Trial from your List. Are you sure you want
-        to delete?
-      </header>
-      <div>
-        Website: <strong>{userTrial.trial.website.name}</strong>
+    <>
+      <br />
+      <div className="container">
+        <Card>
+          <CardBody>
+            <header>
+              This action will remove this Trial from your List. Are you sure
+              you want to delete?
+            </header>
+            <br />
+            <div>
+              Website: <strong>{userTrial.trial.website.name}</strong>
+            </div>
+          </CardBody>
+        </Card>
+        <Button className="btn btn-primary" onClick={handleDelete}>
+          Delete
+        </Button>
+        {"  "}
+        <Link className="btn btn-secondary" to="/">
+          Return to Your Trials
+        </Link>
       </div>
-      <Button className="btn btn-primary" onClick={handleDelete}>
-        Delete
-      </Button>
-      {"  "}
-      <Link className="btn btn-secondary" to="/">
-        Return to Your Trials
-      </Link>
-    </div>
+    </>
   );
 };
 

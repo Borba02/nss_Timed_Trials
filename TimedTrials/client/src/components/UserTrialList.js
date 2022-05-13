@@ -19,16 +19,29 @@ const UserTrialList = () => {
 
   return (
     <div className="container">
+      <br />
       <div className="row justify-content-center">
+        <h3
+          className="card-title"
+          style={{
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          Your Trials
+        </h3>
         <ListGroup>
           {userTrials.map((userTrial) => {
             return (
-              <ListGroupItem key={userTrial.id}>
-                <UserTrial userTrial={userTrial} />
-                <Link to={`/userTrial/delete/${userTrial.id}`}>
-                  <Button>Trial Cancelled?</Button>
-                </Link>
-              </ListGroupItem>
+              <>
+                <br />
+                <ListGroupItem className="cardContainer" key={userTrial.id}>
+                  <UserTrial userTrial={userTrial} />
+                  <Link to={`/userTrial/delete/${userTrial.id}`}>
+                    <Button className="textUnderline">Trial Cancelled?</Button>
+                  </Link>
+                </ListGroupItem>
+              </>
             );
           })}
         </ListGroup>

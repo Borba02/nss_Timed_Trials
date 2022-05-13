@@ -39,8 +39,12 @@ const TrialList = () => {
       return null;
     } else {
       return (
-        <Button id={id} onClick={subscriptionButtonHandler}>
-          Started Subscription?
+        <Button
+          className="btn mt-1 button textUnderline"
+          id={id}
+          onClick={subscriptionButtonHandler}
+        >
+          Started subscription?
         </Button>
       );
     }
@@ -54,21 +58,29 @@ const TrialList = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <Link to={`/trial/new`}>Add New Trial</Link>
-        <ListGroup>
-          {trials.map((trial) => {
-            return (
-              <ListGroupItem key={trial.id}>
-                <Trial trial={trial} />
-                {displayTrackingButton(trial.id)}
-              </ListGroupItem>
-            );
-          })}
-        </ListGroup>
+    <>
+      <div className="container">
+        <div className="row justify-content-center">
+          <Link className="formButton btn" to={`/trial/new`}>
+            <h4>Add New Trial</h4>
+          </Link>
+
+          <ListGroup>
+            {trials.map((trial) => {
+              return (
+                <>
+                  <br />
+                  <ListGroupItem className="cardContainer" key={trial.id}>
+                    <Trial trial={trial} />
+                    {displayTrackingButton(trial.id)}
+                  </ListGroupItem>
+                </>
+              );
+            })}
+          </ListGroup>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

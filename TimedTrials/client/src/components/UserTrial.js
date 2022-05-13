@@ -3,22 +3,29 @@ import { Card, CardBody } from "reactstrap";
 
 const UserTrial = ({ userTrial }) => {
   return (
-    <Card>
-      <div>
-        <CardBody>
-          <h5>Website</h5>
-          <p>
-            <strong>{userTrial.trial.website.name}</strong>
-            <br />
-            {userTrial.trial.website.url}
-          </p>
-          <h5>Trial Duration</h5>
-          <p>{userTrial.trial.trialDuration} Days</p>
-          <h5>Trial Ends On</h5>
-          <p>{userTrial.trialEndDate}</p>
-        </CardBody>
-      </div>
-    </Card>
+    <>
+      <br />
+      <Card>
+        <div>
+          <CardBody>
+            <p>
+              <a className="webLink" href={userTrial.trial.website.url}>
+                {userTrial.trial.website.name}
+              </a>
+              <hr />
+            </p>
+            <h6>Your Trial Started On:</h6>
+            <p>{userTrial.trialStartDate.substr(0, 10)}</p>
+            <hr />
+            <h6>Trial Duration:</h6>
+            <p>{userTrial.trial.trialDuration} Days</p>
+            <hr />
+            <h6>Your Trial Ends On:</h6>
+            <p>{userTrial.trialEndDate.substr(0, 10)}</p>
+          </CardBody>
+        </div>
+      </Card>
+    </>
   );
 };
 

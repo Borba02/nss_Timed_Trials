@@ -3,11 +3,11 @@ import { Card, CardBody } from "reactstrap";
 
 const Website = ({ website }) => {
   return (
-    <Card>
+    <Card className="card">
       <div>
         <CardBody>
-          <p>{website.name}</p>
-          <p>{website.url}</p>
+          <h6>{website.name}</h6>
+          <a href={website.url}>{website.url}</a>
         </CardBody>
       </div>
     </Card>

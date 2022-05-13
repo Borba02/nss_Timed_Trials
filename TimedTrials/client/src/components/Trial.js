@@ -1,21 +1,25 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, CardTitle } from "reactstrap";
 
 const Trial = ({ trial }) => {
   return (
     <Card>
       <div>
         <CardBody>
-          <h5>Website</h5>
           <p>
-            <strong>{trial.website.name}</strong>
-            <br />
-            {trial.website.url}
+            <a className="webLink" href={trial.website.url}>
+              {trial.website.name}
+            </a>
+            <hr />
           </p>
-          <h5>Subscription Fee after trial ends</h5>
+          <h6>Subscription fee after trial ends:</h6>
           <p>${trial.subscriptionPrice} per month</p>
-          <h5>Trial Offer ends on</h5>
-          <p>{trial.trialExpirationDate}</p>
+          <hr />
+          <h6>Trial offer ends on:</h6>
+          <p>{trial.trialExpirationDate.substr(0, 10)}</p>
+          <hr />
+          <h6>Trial duration:</h6>
+          <p>{trial.trialDuration} Days</p>
         </CardBody>
       </div>
     </Card>
